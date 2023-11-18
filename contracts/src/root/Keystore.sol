@@ -47,7 +47,7 @@ contract Keystore is Ownable2Step, Create2 {
         broker.sendMessage(
             chainId,
             receiver,
-            abi.encode(user, walletType, walletId)
+            abi.encode(user, chainId, walletType, abi.encode(user, walletId))
         );
     }
 
