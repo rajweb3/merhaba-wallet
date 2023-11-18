@@ -1,6 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.19;
 
+interface IBroker {
+    function sendMessage(
+        uint32 chainId,
+        address receiver,
+        bytes calldata data
+    ) external;
+}
+
 interface IStateSender {
     function syncState(address receiver, bytes calldata data) external;
 }
@@ -15,7 +23,7 @@ interface IAMB {
 
 error ChainIdNotSupported(uint32 chainId);
 
-contract Broker {
+contract Broker is IBroker {
     // polygon
     IStateSender public stateSender;
     address public stateReceiver;

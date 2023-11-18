@@ -3,10 +3,12 @@ pragma solidity 0.8.19;
 
 import {Ownable2Step} from "oz/contracts/access/Ownable2Step.sol";
 import {Create2} from "../lib/Create2.sol";
+import {IBroker} from "./Broker.sol";
 
 error WalletTypeNotSupported(bytes32 passedWalletType);
 
 contract Keystore is Ownable2Step, Create2 {
+    IBroker public broker;
     mapping(uint32 chainId => bool supported) public supportedChains;
 
     mapping(bytes32 walletType => address walletClone) public walletBytecodes;
@@ -66,6 +68,10 @@ contract Keystore is Ownable2Step, Create2 {
         bool _supported
     ) external onlyOwner {
         supportedChains[_chainId] = _supported;
+    }
+
+    function setBroker(address _broker) external onlyOwner {
+        broker = IBroker(_broker);
     }
 
     constructor() {
