@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.19;
 
+import {Initializable} from "../lib/Initializable.sol";
+
 interface IBroker {
     function sendMessage(
         uint32 chainId,
@@ -23,13 +25,17 @@ interface IAMB {
 
 error ChainIdNotSupported(uint32 chainId);
 
-contract Broker is IBroker {
+contract Broker is IBroker, Initializable {
     // polygon
     IStateSender public stateSender;
     address public stateReceiver;
 
     // gnosis
     IAMB public amb;
+
+    constructor() {
+        _disableInitializers();
+    }
 
     function setStateSender(address _stateSender) external {
         stateSender = IStateSender(_stateSender);
