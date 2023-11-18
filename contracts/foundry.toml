@@ -3,6 +3,6 @@ src = "src"
 out = "out"
 libs = ["lib"]
 remappings = [
-    'oz/=lib/openzeppelin-contracts/'
+    'oz/=lib/openzeppelin-contracts-06/'
 ]
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options

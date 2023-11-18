@@ -18,11 +18,12 @@ contract Keystore is Ownable2Step, Create2 {
     function forceCreateWalletOnL2s(
         uint32[] calldata l2ChainIds,
         address user,
-        bytes32[] calldata walletTypes
+        bytes32 walletTypes,
+        bytes32 walletId
     ) public {
         uint len = l2ChainIds.length;
         for (uint i; i < len; ) {
-            forceCreateWalletOnL2(l2ChainIds[i], user, walletTypes[i]);
+            forceCreateWalletOnL2(l2ChainIds[i], user, walletTypes, walletId);
             unchecked {
                 ++i; // not needed for sol 8.22 but not all chains support push0 (8.20) yet
             }
@@ -34,7 +35,7 @@ contract Keystore is Ownable2Step, Create2 {
         address user,
         bytes32 walletType,
         bytes32 walletId
-    ) {
+    ) public {
         if (walletBytecodes[walletType] == address(0)) {
             revert WalletTypeNotSupported(walletType);
         }
@@ -64,7 +65,7 @@ contract Keystore is Ownable2Step, Create2 {
     }
 
     function updateSupportedChains(
-        uint32 _chaindId,
+        uint32 _chainId,
         bool _supported
     ) external onlyOwner {
         supportedChains[_chainId] = _supported;
