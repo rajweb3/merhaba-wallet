@@ -9,11 +9,16 @@ error WalletTypeNotSupported(bytes32 passedWalletType);
 
 contract Keystore is Ownable2Step, Create2 {
     IBroker public broker;
+    address public receiver;
     mapping(uint32 chainId => bool supported) public supportedChains;
 
     mapping(bytes32 walletType => address walletClone) public walletBytecodes;
 
     mapping(address user => bytes32 walletId) public walletIds;
+
+    function setReceiver(address _receiver) external onlyOwner {
+        receiver = _receiver;
+    }
 
     function forceCreateWalletOnL2s(
         uint32[] calldata l2ChainIds,
@@ -39,6 +44,11 @@ contract Keystore is Ownable2Step, Create2 {
         if (walletBytecodes[walletType] == address(0)) {
             revert WalletTypeNotSupported(walletType);
         }
+        broker.sendMessage(
+            chainId,
+            receiver,
+            abi.encode(user, walletType, walletId)
+        );
     }
 
     function previewWalletAddress(
