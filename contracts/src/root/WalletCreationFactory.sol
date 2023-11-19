@@ -7,7 +7,7 @@ import {IBroker} from "./Broker.sol";
 
 error WalletTypeNotSupported(bytes32 passedWalletType);
 
-contract Keystore is Ownable2Step, Create2 {
+contract WalletCreationFactory is Ownable2Step, Create2 {
     IBroker public broker;
     address public receiver;
     mapping(uint32 chainId => bool supported) public supportedChains;
