@@ -1,0 +1,33 @@
+{
+  "name": "next-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@celo/identity": "^5.1.1",
+    "@headlessui/react": "^1.7.17",
+    "@pushprotocol/restapi": "^1.4.38",
+    "ethers": "^5.6.8",
+    "next": "13.5.6",
+    "next-auth": "^4.24.5",
+    "react": "^18",
+    "react-dom": "^18",
+    "viem": "^1.19.3",
+    "wagmi": "^1.4.7"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10",
+    "daisyui": "^4.4.2",
+    "postcss": "^8",
+    "tailwindcss": "^3",
+    "typescript": "^5"
+  }
+}
