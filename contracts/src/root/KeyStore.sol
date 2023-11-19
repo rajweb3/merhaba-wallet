@@ -25,6 +25,7 @@ contract KeyStore is ReentrancyGuard {
     /// @notice wallets managed by a given verification key
     mapping(address => bool) public isWalletManaged;
     mapping(address => uint256[]) public walletManagedNetworks;
+    address[] walletsManaged;
 
     /// @notice stores the total count of wallets managed
     uint256 public totalWalletsManaged;
@@ -158,6 +159,7 @@ contract KeyStore is ReentrancyGuard {
         );
         isWalletManaged[_walletAddress] = true;
         walletManagedNetworks[_walletAddress].push(_chainId);
+        walletsManaged[totalWalletsManaged] = _walletAddress;
 
         totalWalletsManaged++;
         emit NewWalletRegistered(_walletAddress, _chainId);

@@ -114,7 +114,7 @@ export const Web3Context = ({ children }: { children: React.ReactNode }) => {
   const handleAccountChange = async () => {
     const path = window.location.href;
     // switch wallet page will be happening here
-    if (path.includes("/recover-wallet")) {
+    if (path.includes("/recovery")) {
       return;
     } else {
       await disconnect();

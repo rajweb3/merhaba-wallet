@@ -1,51 +1,49 @@
 import { Inter } from "next/font/google";
 import HeaderNav from "@/components/HeaderNav";
 import Footer from "@/components/Footer";
-import { useState } from "react";
+import { useReducer, useState } from "react";
+import { wallets } from "@/config/keystores";
+import DashboardWalletCard from "@/components/DashboardWalletCard";
+import { useRouter } from "next/router";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Dashboard() {
   const [enableNewWalletForm, setEnableNewWalletForm] = useState(false);
   const [newWalletNetwork, setNewWalletNetwork] = useState("");
+  const router = useRouter();
+
+  const concatAddress = (address: string) => {
+    return address.slice(0, 9) + "..." + address.slice(33);
+  };
   return (
     <>
       <nav>
         <HeaderNav />
       </nav>
-      <main>
+      <main className="mb-[450px]">
         <div className="container mx-auto py-8">
           <div className="flex justify-end mb-4">
-            <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+            <button
+              className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+              onClick={() => {
+                router.push("/recovery");
+              }}
+            >
               Initiate Recovery
             </button>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            <div className="bg-white shadow-md rounded-lg p-4">
-              <h3 className="text-gray-800 text-lg font-semibold mb-2">
-                Network Name
-              </h3>
-              <p className="text-gray-500 text-sm mb-2">Wallet Address</p>
-              <p className="text-gray-500 text-sm mb-2">Wallet Balance: </p>
-              {/* <p className="text-gray-500 text-sm mb-2">Creation Tx: </p> */}
-              <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-4">
-                Open
-              </button>
-            </div>
+            {wallets["0x824d4f8299B9495BD1B145C5b95aB1530220Ce8F"].map((v) => (
+              <DashboardWalletCard
+                chainId={v.chainId}
+                chainName={v.chainName}
+                walletAddress={concatAddress(v.wallet)}
+              />
+            ))}
 
-            <div className="bg-white shadow-md rounded-lg p-4">
-              <h3 className="text-gray-800 text-lg font-semibold mb-2">
-                Network Name
-              </h3>
-              <p className="text-gray-500 text-sm mb-2">Wallet Address</p>
-              <p className="text-gray-500 text-sm mb-2">Wallet Balance: </p>
-              {/* <p className="text-gray-500 text-sm mb-2">Creation Tx: </p> */}
-              <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-4">
-                Open
-              </button>
-            </div>
-            <div className=" rounded-lg p-4">
+            <div className=" rounded-lg p-4 mt-16">
               <button
                 className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
                 onClick={() => {
@@ -72,7 +70,7 @@ export default function Dashboard() {
                     defaultValue={"Which network?"}
                     onChange={(v) => {
                       console.log({ network: v.target.value });
-                      setNewWalletNetwork(v.target.value)
+                      setNewWalletNetwork(v.target.value);
                       setEnableNewWalletForm(true);
                     }}
                   >
@@ -80,7 +78,10 @@ export default function Dashboard() {
                     <option>zkSync</option>
                   </select>
                   <br />
-                  <button className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded mt-4" disabled={!enableNewWalletForm}>
+                  <button
+                    className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded mt-4"
+                    disabled={!enableNewWalletForm}
+                  >
                     Create
                   </button>
                 </div>

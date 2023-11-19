@@ -2,7 +2,7 @@
 import { SocialConnectIssuer } from "@/SocialConnect";
 import { RPC } from "@/SocialConnect/utils";
 import { AuthenticationMethod } from "@celo/identity/lib/odis/query";
-import { JsonRpcProvider, Wallet } from "ethers";
+import { providers, Wallet } from "ethers";
 import { NextApiRequest, NextApiResponse } from "next";
 
 // Define the response type for the revoke function
@@ -29,7 +29,7 @@ export default async function revoke(
       // Create a new wallet instance using the private key and JSON RPC provider
       let wallet = new Wallet(
         process.env.ISSUER_PRIVATE_KEY as string,
-        new JsonRpcProvider(RPC)
+        new providers.JsonRpcProvider(RPC)
       );
 
       // Create a new instance of the SocialConnectIssuer

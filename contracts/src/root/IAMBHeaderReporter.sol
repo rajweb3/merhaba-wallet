@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: LGPL-3.0-only
-pragma solidity ^0.8.17;
+pragma solidity ^0.8.11;
 
 interface IAMBHeaderReporter {
     /// @dev Reports the given block headers to the oracleAdapter via the AMB.

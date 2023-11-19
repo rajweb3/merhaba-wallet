@@ -11,7 +11,8 @@
   "dependencies": {
     "@celo/identity": "^5.1.1",
     "@headlessui/react": "^1.7.17",
-    "ethers": "^6.8.1",
+    "@pushprotocol/restapi": "^1.4.38",
+    "ethers": "^5.6.8",
     "next": "13.5.6",
     "next-auth": "^4.24.5",
     "react": "^18",

@@ -3,7 +3,7 @@ import { SocialConnectIssuer } from "@/SocialConnect";
 import { RPC } from "@/SocialConnect/utils";
 import { IdentifierPrefix } from "@celo/identity/lib/odis/identifier";
 import { AuthenticationMethod } from "@celo/identity/lib/odis/query";
-import { JsonRpcProvider, Wallet } from "ethers";
+import { providers, Wallet } from "ethers";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 // Define the response type for the lookup function
@@ -23,7 +23,7 @@ export default async function lookup(
       // Create a new wallet instance using the private key and JSON RPC provider
       let wallet = new Wallet(
         process.env.ISSUER_PRIVATE_KEY as string,
-        new JsonRpcProvider(RPC)
+        new providers.JsonRpcProvider(RPC)
       );
 
       // Create a new instance of the SocialConnectIssuer
